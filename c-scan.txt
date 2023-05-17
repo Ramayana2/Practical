@@ -1,0 +1,93 @@
+5)Write a simulation program for disk scheduling using C-SCAN algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments.
+
+//cscan
+#include<stdio.h>
+
+
+int ReqString[20],nor,nob,start,thm,min[10],max[10];
+char direction;
+
+
+
+void sort(int RS[])
+{
+        int i,j,temp;
+        for(i=1;i<nor;i++)
+        {
+                for(j=0;j<nor-i;j++)
+                {
+                        if(RS[j]>RS[j+1])
+                        {
+                                temp=RS[j];
+                                RS[j]=RS[j+1];
+                                RS[j+1]=temp;
+                        }
+                }
+
+        }
+}
+main()
+{
+	int i,j,k,spos;
+	printf("\nEnter No.of Requests: ");
+	scanf("%d",&nor);
+	printf("\nEnter Requests:\n");
+	for(i=0;i<nor;i++)
+	{
+		printf("[%d]=",i);
+		scanf("%d",&ReqString[i]);
+	}
+	printf("\nEnter No.of Cylinders: ");
+	scanf("%d",&nob);
+	printf("\nEnter Start Block: ");
+	scanf("%d",&start);
+        ReqString[nor++]=start;
+        sort(ReqString);
+        for(i=0;i<nor;i++)
+          printf(" %d",ReqString[i]);
+        for(spos=0;spos<=nor && ReqString[spos]!=start; spos++);
+	printf("\nEnter Direction: ");
+	scanf(" %c",&direction);
+	if(direction=='L')
+	{
+			printf("\n%d-0",start);
+			thm+=start-0;
+			printf("\n%d-%d",nob-1,ReqString[spos+1]);
+			thm+=(nob-1)-ReqString[spos+1];
+	}
+	else if(direction=='R')
+	{
+			printf("\n%d-%d",nob-1,start);
+			thm+=(nob-1)-start;
+			printf("\n%d-0",ReqString[spos-1]);
+			thm+=ReqString[spos-1]-0;
+
+	}
+	printf("\nTotal Head Movement: %d",thm);
+}
+/*
+[root@localhost disc sheduling]# cc cscan.c
+[root@localhost disc sheduling]# ./a.out
+
+Enter No.of Requests: 8
+
+Enter Requests:
+[0]=95
+[1]=180
+[2]=34
+[3]=119
+[4]=11
+[5]=123
+[6]=62
+[7]=64
+
+Enter No.of Cylinders: 200
+
+Enter Start Block: 50
+ 11 34 50 62 64 95 119 123 180
+Enter Direction: L
+
+50-0
+199-62
+Total Head Movement: 187
+*/

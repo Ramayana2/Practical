@@ -1,0 +1,63 @@
+1)Write a simulation program for disk scheduling using FCFS algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments.
+
+#include<stdio.h>
+int ReqString[20],nor,nob,start,thm;
+main()
+{
+	int i,j,k;
+	printf("\nEnter No.of Requests: ");
+	scanf("%d",&nor);
+	printf("\nEnter Requests:\n");
+	for(i=0;i<nor;i++)
+	{
+		printf("[%d]=",i);
+		scanf("%d",&ReqString[i]);
+	}
+	printf("\nEnter No.of Cylinders: ");
+	scanf("%d",&nob);
+	printf("\nEnter Start Block: ");
+	scanf("%d",&start);
+
+		for(i=0;i<nor;i++)
+		{
+			printf("\n%d-%d",start,ReqString[i]);
+			  if(ReqString[i]>=start)
+		       {
+			thm+=ReqString[i]-start;
+			start=ReqString[i];
+		       }
+		     else
+			  {
+			  thm+=start-ReqString[i];
+			   start=ReqString[i];
+		      }
+	}
+		printf("\nTotal Head Movement: %d",thm);
+}
+/*
+Enter No.of Requests: 8
+
+Enter Requests:
+[0]=98
+[1]=183
+[2]=37
+[3]=122
+[4]=14
+[5]=124
+[6]=65
+[7]=67
+
+Enter No.of Cylinders: 200
+
+Enter Start Block: 53
+
+53-98
+98-183
+183-37
+37-122
+122-14
+14-124
+124-65
+65-67
+Total Head Movement: 640
+*/

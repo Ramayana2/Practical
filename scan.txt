@@ -1,7 +1,8 @@
-4)Write a simulation program for disk scheduling using LOOK algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments.
+3)Write a simulation program for disk scheduling using SCAN algorithm. Accept total number of disk blocks, disk request string, and current head position from the user. Display the list of request in the order in which it is served. Also display the total number of head moments.
 
-//LOOK
+//scan
 #include<stdio.h>
+
 
 int ReqString[20],nor,nob,start,thm,min[10],max[10];
 char direction;
@@ -25,10 +26,10 @@ int getmax()
 }
 
 
- main()
+main()
 {
 	int i,j,k,max,min;
-printf("\nEnter No.of Requests: ");
+	printf("\nEnter No.of Requests: ");
 	scanf("%d",&nor);
 	printf("\nEnter Requests:\n");
 	for(i=0;i<nor;i++)
@@ -42,22 +43,21 @@ printf("\nEnter No.of Requests: ");
 	scanf("%d",&start);
 	printf("\nEnter Direction: ");
 	scanf(" %c",&direction);
-
 	min=getmin();
 	max=getmax();
 	if(direction=='L')
 	{
-			printf("\n%d-%d",start,min);
-			thm+=start-min;
-			start=min;
+			printf("\n%d-0",start);
+			thm+=start-0;
+			start=0;
 			printf("\n%d-%d",max,start);
 			thm+=max-start;
 	}
 	else if(direction=='R')
 	{
-			printf("\n%d-%d",start,max);
-			thm+=max-start;
-			start=max;
+			printf("\n%d-%d",start,nob-1);
+			thm+=(nob-1)-start;
+			start=nob-1;
 			printf("\n%d-%d",start,min);
 			thm+=start-min;
 
@@ -65,7 +65,7 @@ printf("\nEnter No.of Requests: ");
 	printf("\nTotal Head Movement: %d",thm);
 }
 /*
-[root@localhost disc sheduling]# cc look.c
+[root@localhost disc sheduling]# cc scan.c
 [root@localhost disc sheduling]# ./a.out
 
 Enter No.of Requests: 8
@@ -86,7 +86,7 @@ Enter Start Block: 50
 
 Enter Direction: L
 
-50-11
-180-11
-Total Head Movement: 208
+50-0
+180-0
+Total Head Movement: 230
 */

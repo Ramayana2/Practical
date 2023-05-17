@@ -1,0 +1,80 @@
+Write a program to simulate Linked file allocation method. Assume disk with n number of blocks. Give value of n as input. Write menu driver program with menu options as mentioned above and implement each option. 
+#include <stdio.h>
+#include <stdlib.h>
+int main(){
+    int f[50], p, i, st, len, j, c, k, a;
+    for (i = 0; i < 50; i++)
+        f[i] = 0;
+    printf("Enter how many blocks already allocated: ");
+    scanf("%d", &p);
+    printf("Enter blocks already allocated: ");
+    for (i = 0; i < p; i++) {
+        scanf("%d", &a);
+        f[a] = 1;
+    }
+x:
+    printf("Enter starting block: ");
+    scanf("%d",&st);
+     printf("Enter length of the file: ");
+    scanf("%d",&len);
+ 
+   k = len;
+    if (f[st] == 0)
+    {
+        for (j = st; j < (st + k); j++){
+            if (f[j] == 0){
+                f[j] = 1;
+                printf("%d-------->%d\n", j, f[j]);
+            }
+            else{
+                printf("%d Block is already allocated \n", j);
+                k++;
+            }
+        }
+    }
+    else
+        printf("%d starting block is already allocated \n", st);
+    printf("Do you want to enter more file(Yes - 1/No - 0)");
+    scanf("%d", &c);
+    if (c == 1)
+        goto x;
+    else
+        exit(0);
+    return 0;
+}
+/*
+[root@localhost osass2]# cc linked.c
+[root@localhost osass2]# ./a.out
+Enter how many blocks already allocated: 10
+Enter blocks already allocated: 2
+8
+12
+17
+23
+26
+32
+37
+43
+48
+Enter starting block: 4
+Enter length of the file: 5
+4-------->1
+5-------->1
+6-------->1
+7-------->1
+8 Block is already allocated 
+9-------->1
+Do you want to enter more file(Yes - 1/No - 0)1
+Enter starting block: 23
+Enter length of the file: 5
+23 starting block is already allocated 
+Do you want to enter more file(Yes - 1/No - 0)1
+Enter starting block: 34
+Enter length of the file: 4
+34-------->1
+35-------->1
+36-------->1
+37 Block is already allocated 
+38-------->1
+Do you want to enter more file(Yes - 1/No - 0)0
+*/
